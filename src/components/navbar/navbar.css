@@ -1,0 +1,59 @@
+.navbar {
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+  height: 6rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+.nav-center {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+.logo-box {
+  height: 100%;
+  width: 100%;
+  display: flex;
+}
+.logo-link {
+  height: 100%;
+  width: 20%;
+}
+
+.logo-box h1 {
+  margin: auto 0;
+  font-family: "Nunito", sans-serif;
+  font-size: 2rem;
+}
+
+.logo-box .icon {
+  margin: auto 1rem;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  justify-content: space-around;
+  width: 70%;
+}
+
+.nav-links a {
+  text-transform: uppercase;
+  font-weight: bold;
+  font-weight: 600;
+  font-size: 1.3rem;
+  padding: 0.25rem 0.6rem;
+  transition: 0.3s;
+}
+
+.nav-links a:hover {
+  font-size: 1.6rem;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: var(--primary-color);
+}

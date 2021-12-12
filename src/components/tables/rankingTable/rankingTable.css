@@ -1,0 +1,42 @@
+.table-headers {
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+  font-weight: 600;
+  text-align: center;
+  margin-top: auto;
+  text-transform:capitalize;
+  border-bottom: 2px solid var(--primary-color);
+}
+
+.table-headers td{
+    padding: 0.4rem;
+}
+
+.ranking-table {
+  background-color: var(--ternary-color);
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1.2rem;
+}
+.img-rank{
+  height: 1.1rem;
+}
+
+.ranking-table a {
+  text-decoration: none;
+  color: var(--primary-color);
+  cursor: pointer;
+}
+
+.ranking-table-data td:not(.name-td) {
+  text-align: center;
+}
+
+
+.ranking-table-data td{
+    padding: 0.2rem;
+}
+
+.ranking-table-data tr:nth-child(odd){
+    background-color: rgba(0, 0, 0, 0.1);
+}

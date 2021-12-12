@@ -1,0 +1,22 @@
+.table-data td{
+    padding: 0.5rem;
+    text-align: center;
+    font-weight: 600;
+    width: 20%;
+}
+
+.td-img{
+    height: 3rem;
+}
+
+.NextFixture-table{
+  background-color: var(--ternary-color);
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1.4rem;
+}
+
+.date{
+  font-size: 1rem;
+}
+
