@@ -19,7 +19,7 @@ export const RankingTable = () => {
               const {pos,img,nm,mtc,gd,pts} = item
               return <tr className="club-tr" key={index}>
                   <td className="position-td">{pos}.</td>
-                  <td className="name-td"><a href="#"><img className="img-rank"src={img} alt={nm} />  {nm}</a></td>
+                  <td className="name-td"><a href={`/clubs/${nm.toLowerCase().replace(/\s/g, '')}`}><img className="img-rank"src={img} alt={nm} />  {nm}</a></td>
                   <td className="match-td">{mtc}</td>
                   <td className="gd-td">{gd}</td>
                   <td className="pts-td">{pts}</td>

@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react/cjs/react.development";
 import "./newsSlider.css";
-import clubsPreview from "../../clubsPreview";
+import clubsPreview from "../../data/clubsPreview";
 import {FiChevronLeft,FiChevronRight} from "react-icons/fi"
 
 export const NewsSlider = () => {

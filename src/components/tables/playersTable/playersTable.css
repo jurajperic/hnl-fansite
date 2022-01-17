@@ -1,0 +1,18 @@
+.players-table-data td{
+    padding: 0.2rem;
+}
+
+.players-table-data tr:nth-child(odd){
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.players-table{
+    width: 90%;
+    margin: 2% auto;
+    background-color: var(--ternary-color);
+    border-collapse: collapse;
+    font-size: 1.2rem;
+}
+.players-table-data td:not(.name-td) {
+    text-align: center;
+  }

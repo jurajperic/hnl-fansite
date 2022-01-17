@@ -24,7 +24,6 @@ export const Home = () => {
       await fetchHomeTable()
       await fetchVideo()
       await fetchCurrentFixture()
-      console.log("false loading");
       setLoading(false)
     }
 
