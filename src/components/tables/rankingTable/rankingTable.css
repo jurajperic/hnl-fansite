@@ -12,11 +12,12 @@
     padding: 0.4rem;
 }
 
-.ranking-table {
+.ranking-table, .currentFixture-table, .top-scorers-table {
   background-color: var(--ternary-color);
   width: 100%;
   border-collapse: collapse;
   font-size: 1.2rem;
+  height: 100%;
 }
 .img-rank{
   height: 1.1rem;
@@ -37,6 +38,29 @@
     padding: 0.2rem;
 }
 
-.ranking-table-data tr:nth-child(odd){
+.ranking-table-data tr:nth-child(even){
     background-color: rgba(0, 0, 0, 0.1);
 }
+
+
+.more-div a{
+  float: right;
+  color: var(--secondary-color);
+}
+
+.btns{
+  margin-top: 1%;
+  float:right;
+  color: var(--primary-color);
+}
+
+.btns button{
+  background-color: var(--secondary-color);
+  margin-left:5px;
+  font-size: 1rem;
+  height: 2rem;
+  width: 2rem;
+  cursor: pointer;
+  border: none;
+}
+

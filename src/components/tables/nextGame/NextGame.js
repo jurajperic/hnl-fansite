@@ -7,14 +7,17 @@ export const NextGame = () => {
   const { currentFixture } = useGlobalContext();
   const [game, setGame] = useState({});
   useEffect(() => {
-    setGame(currentFixture.find((fixture) => fixture.result.includes("PM")) || currentFixture[currentFixture.length-1]);
-  }, []);
+    setGame(
+      currentFixture.find((fixture) => fixture.result.includes("PM")) ||
+        currentFixture[currentFixture.length - 1]
+    );
+  }, [currentFixture]);
 
   return (
     <table className="NextFixture-table">
       <thead className="table-headers">
         <tr>
-          <td colSpan="5">Slijedeća utakmica{console.log(game.date)}</td>
+          <td colSpan="5">Slijedeća utakmica</td>
         </tr>
       </thead>
       <tbody className="table-data">
@@ -27,6 +30,7 @@ export const NextGame = () => {
             />
           </td>
           <td className="td-team">{game.firstTeam}</td>
+
           <td className="td-res">
             <div className="time">{game.result}</div>
             <div className="date">{game.date}</div>

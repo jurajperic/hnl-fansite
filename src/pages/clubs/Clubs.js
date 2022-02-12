@@ -1,4 +1,3 @@
-import React, { useState } from 'react'
 import { Card } from '../../components/card/Card'
 import clubsPreview from '../../data/clubsPreview'
 import './clubs.css'

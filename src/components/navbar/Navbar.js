@@ -39,11 +39,6 @@ export const Navbar = () => {
               igrači
             </a>
           </li>
-          <li>
-            <a className="nav-link" href="/ideal-squad">
-              my squad
-            </a>
-          </li>
         </ul>
       </div>
     </nav>

@@ -1,0 +1,13 @@
+.current-fixture-table-data td{
+    text-align: center;
+}
+.current-fixture-table-data tr{
+    height: 7vh;
+}
+.current-fixture-table-data tr:nth-child(even){
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+  
+.current-fixture-table-data .td-img{
+    height: 2rem;
+  }

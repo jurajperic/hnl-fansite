@@ -34,6 +34,7 @@
     transform: translateY(-4.5rem);
     visibility: hidden;
     transition: 0.3s ease-in;
+    font-family: "Nunito", sans-serif;
 }
 
 .card a{

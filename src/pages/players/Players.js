@@ -6,11 +6,14 @@ import { Loading } from '../loading/Loading'
 
 export const Players = () => {
     const {fetchAllPlayers,loading,setLoading} = useGlobalContext()
-    useEffect(async() => {
-        setLoading(true)
-        await fetchAllPlayers()
-        setLoading(false)
-    }, [])
+    useEffect(() => {
+        const fetchPlayersPage=async()=>{
+            setLoading(true)
+            await fetchAllPlayers()
+            setLoading(false)
+        }
+        fetchPlayersPage()
+    },[])
     if(loading)return <Loading></Loading>
     return (<>
     <PlayersTable></PlayersTable>

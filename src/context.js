@@ -8,6 +8,9 @@ const tableUrl =
 const currentFixtureUrl =
   "https://www.transfermarkt.com/1-hnl/startseite/wettbewerb/KR1";
 
+const scorersUrl = 
+  "https://www.transfermarkt.com/1-hnl/torschuetzenliste/wettbewerb/KR1/saison_id/2021/page/"
+
 const AppContext = React.createContext();
 const getPlayersAttrs = (items,pos,club)=>{
   return items.map((tag)=>{
@@ -22,7 +25,7 @@ const getPlayersAttrs = (items,pos,club)=>{
       tag=tag.nextElement
     }
     let name= tag.text.split(' ')
-    name=(name[0]+' '+name[2]).split('&')[0]
+    name=name.length>1 ? (name[0]+' '+name[2]).split('&')[0] : name[0]
     while(tag.attrs?.class!=='zentriert'){
       tag=tag.nextElement
     }
@@ -37,7 +40,7 @@ const getPlayersAttrs = (items,pos,club)=>{
       tag=tag.nextElement
     }
     let price = tag.text.split('&')[0]
-    
+    price = (price.endsWith('Th.') || price.endsWith('m')) ? price :null
     return({
       position:position,
       num:number,
@@ -53,17 +56,46 @@ const getPlayersAttrs = (items,pos,club)=>{
   
 }
 
+const getScorers=(tag)=>{
+        while(tag.name !== 'a'){
+          tag=tag.nextElement;
+        }
+        const name = tag.text
+        var count =0
+        while(count !== 4){
+          tag=tag.nextElement;
+          if(tag.name==='td') count++
+        }
+        tag=tag.nextElement.nextElement
+        const club = tag.attrs.src
+        count=0
+        while(count !== 2){
+          tag=tag.nextElement;
+          if(tag.name==='a') count++
+        }
+        const goals = tag.text
+        return {
+          name:name,
+          club: club,
+          goals:goals
+        }
+}
+const MakeSoup = async (Url)=>{
+    const res = await fetch(Url);
+    const data = await res.text();
+    return new JSSoup(data);
+}
+
 const AppProvider = ({ children }) => {
   const [tableItems, setTableItems] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentFixture, setCurrentFixture] = useState([]);
   const [clubData, setClubData] = useState({});
-  const [players,setPlayers] = useState([])
+  const [players,setPlayers] = useState([]);
+  const [scorers,setScorers]=useState([]);
 
   const fetchHomeTable = async () => {
-    const res = await fetch(tableUrl);
-    const data = await res.text();
-    const soup = new JSSoup(data);
+    const soup = await MakeSoup(tableUrl);
     var tableItems = soup.findAll("tr");
     tableItems = tableItems.slice(12, 22);
     var items = tableItems.map((tag, index) => {
@@ -94,9 +126,7 @@ const AppProvider = ({ children }) => {
   };
 
   const fetchCurrentFixture = async () => {
-    const res = await fetch(currentFixtureUrl);
-    const data = await res.text();
-    const soup = new JSSoup(data);
+    const soup =await  MakeSoup(currentFixtureUrl);;
     var fixtures = soup.findAll("tr");
 
     fixtures = fixtures.slice(32, 37);
@@ -125,9 +155,7 @@ const AppProvider = ({ children }) => {
   };
 
   const fetchClubData = async (url) => {
-    const res = await fetch(url);
-    const data = await res.text();
-    const soup = new JSSoup(data);
+    const soup = await MakeSoup(url);
     var dataItems = soup.findAll("span", "dataValue");
     var value = soup.find("span",'waehrung').previousElement
     const state = {
@@ -143,9 +171,7 @@ const AppProvider = ({ children }) => {
     }));
   };
   const fetchPlayers = async(club) =>{
-    const res = await fetch(club.link);
-    const data = await res.text();
-    const soup = new JSSoup(data);
+    const soup = await MakeSoup(club.link);
     var tableData = soup.findAll('td')
     var items = tableData.filter((item)=>item.attrs.title==='Goalkeeper')
     const gks= getPlayersAttrs(items,'GK',club.name)
@@ -167,8 +193,8 @@ const AppProvider = ({ children }) => {
        allPLayers.push(...clubPlayers)
      }
      allPLayers.sort((player1,player2)=>{
-       if(player1.price==='') return 1
-       if(player2.price==='') return -1
+       if(player1.price===null) return 1
+       if(player2.price===null) return -1
        var price1 = player1.price.endsWith('Th.') ? parseFloat(player1.price.slice(1,-3)) : parseFloat(player1.price.slice(1,-1))*1000
        var price2 = player2.price.endsWith('Th.') ? parseFloat(player2.price.slice(1,-3)) : parseFloat(player2.price.slice(1,-1))*1000
        if(price1<price2) return 1
@@ -177,6 +203,29 @@ const AppProvider = ({ children }) => {
     setPlayers(allPLayers)
         
     }
+
+  const fetchTopScorers = async(short)=>{
+    var scorers = []
+    if(short){
+      const soup = await MakeSoup(scorersUrl+'1');
+      const tableItems = soup.findAll('tr').slice(14,87).filter((item,index)=>index%3===0);
+      for (let index = 0; index < tableItems.length; index++) {
+        scorers.push(getScorers(tableItems[index]))
+      }
+      
+    }
+    else{
+      for (let index = 1; index <6; index++) {
+        const soup = await MakeSoup(scorersUrl+index);
+        const tableItems = soup.findAll('tr').slice(14,87).filter((item,index)=>index%3===0);
+        for (let index = 0; index < tableItems.length; index++) {
+          scorers.push(getScorers(tableItems[index]))
+        }
+      }
+    }
+    
+    setScorers(scorers);
+  }
   
   return (
     <AppContext.Provider
@@ -191,7 +240,10 @@ const AppProvider = ({ children }) => {
         clubData,
         fetchPlayers,
         players,
-        fetchAllPlayers,setPlayers
+        fetchAllPlayers,
+        setPlayers,
+        fetchTopScorers,
+        scorers
       }}
     >
       {children}

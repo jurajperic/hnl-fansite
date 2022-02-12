@@ -1,15 +1,18 @@
 import React from "react";
 import "./clubInfo.css";
-import { useCallback,useEffect } from "react";
+import {useEffect } from "react";
 import { PlayersTable } from "../../components/tables/playersTable/PlayersTable";
 import { useGlobalContext } from "../../context";
 import { useParams } from "react-router-dom";
 import clubsPreview from "../../data/clubsPreview";
 import { useState } from "react/cjs/react.development";
 import { Loading } from "../loading/Loading";
+import stadiumsInfo from "../../data/stadiumsInfo";
+
+
 
 export const ClubInfo = () => {
-    const {fetchClubData,clubData,loading,setLoading,fetchPlayers,fetchAllPlayers} = useGlobalContext()
+    const {fetchClubData,clubData,loading,setLoading,fetchPlayers} = useGlobalContext()
     const {clubId} = useParams()
     var myClub =  clubsPreview.find((club)=>club.id===clubId)
     const [club,setClub]=useState(myClub)
@@ -18,11 +21,16 @@ export const ClubInfo = () => {
         setClub(myClub)
         await fetchClubData(club.link)
         await fetchPlayers(club)
-        setLoading(false)
       }
+
+
       useEffect(() => {
-        setLoading(true)
-        fetchClubInfoComponents()
+        const fetchInfo=async()=>{
+          setLoading(true)
+        await fetchClubInfoComponents()  
+          setLoading(false)
+        }
+        fetchInfo()
       }, [clubId,club])
     
 
@@ -44,7 +52,7 @@ export const ClubInfo = () => {
         </div>
         <div className="clubInfo-column">
           <p>Reprezentativci: {clubData.nationalPlayers}</p>
-          <p>Stadion: {club.stadium}</p>
+          <p>Stadion: <a className="stadium-link" href={`/stadiums/${club.stadium}`}>{stadiumsInfo.find(stad=>stad.id===club.stadium).name}</a></p>
           <p>Trener: {club.manager}</p>
         </div>
         </div>

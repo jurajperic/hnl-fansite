@@ -23,7 +23,6 @@ export const NewsSlider = () => {
   return (
     <>
       <section className="news-section">
-      <a href="#" className="club-link">
           {clubs.map((club, clubIndex) => {
             const { id, name, img } = club;
             let position = "nextSlide";
@@ -38,15 +37,18 @@ export const NewsSlider = () => {
             }
             return (
               
+              
                 <article className={position} style={{ backgroundImage: `url(${img})` }} key={id}>
+                  <a href={'clubs/'+id} className="club-link">
                   <div className="text-container">
                     <h1>{name}</h1>
                   </div>
+                  </a>
                 </article>
-               
+                
             );
           })}
-        </a>
+        
         <button className="prev" onClick={()=>setIndex(index-1)}>
         <FiChevronLeft size={40}/>
       </button>

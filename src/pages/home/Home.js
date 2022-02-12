@@ -18,24 +18,26 @@ export const Home = () => {
         await fetch(url).then((res)=>{
             return res.json()
           }).then((data)=>setVideo(video+data.items[0].id.videoId))
-          console.log("video fetched");
     }
     const fetchHomeScreenComponents = async() => {
       await fetchHomeTable()
       await fetchVideo()
       await fetchCurrentFixture()
-      setLoading(false)
     }
 
     useEffect(() => {
+      const homeFetch = async()=>{
         setLoading(true)
-        fetchHomeScreenComponents()
+        await fetchHomeScreenComponents()
+        setLoading(false)
+      } 
+        homeFetch()
       },[]);
     if(loading) return <Loading/>
     return (
         <section className="home-page">
             <NewsSlider ></NewsSlider>
-            <RankingTable ></RankingTable>
+            <RankingTable params={false} ></RankingTable>
             <ReactPlayer className="newVideo"
             controls= {true}
             width="100%"

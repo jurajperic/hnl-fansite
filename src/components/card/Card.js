@@ -5,7 +5,7 @@ export const Card = (props) => {
   const { id,name, logo, image } = props.params;
   return (
     <div className="card">
-      <a href={`${id}`}>
+      <a href={window.location.href+'/'+id}>
         <div className="img-border" style={{backgroundImage:`url(${image})`}}>
           {image!==undefined || <img className="card-img" src={logo} alt={name} />}
         </div>

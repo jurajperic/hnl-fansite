@@ -1,12 +1,11 @@
-import React, { useState } from 'react'
 import { Card } from '../../components/card/Card'
-import StadiumsInfo from '../../data/StadiumsInfo'
+import stadiumsInfo from '../../data/stadiumsInfo'
 
 
 export const Stadiums = () => {
     return (
         <section className='clubs-section'>
-            {StadiumsInfo.map((stadium,index)=>{
+            {stadiumsInfo.map((stadium,index)=>{
                 
                 return <Card key={index} params={stadium}></Card>
             })}
