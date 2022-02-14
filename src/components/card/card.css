@@ -2,7 +2,6 @@
     margin:  auto;
     height: 210px;
     padding: 10px;
-    
 }
 
 .img-border{
@@ -23,9 +22,6 @@
     text-align: center;
     padding: 2%;
     background-color: var(--secondary-color);
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
     height: 4.5rem;
     display: flex;
     align-items: center;

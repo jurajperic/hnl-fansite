@@ -1,8 +1,7 @@
 .news-section {
-  height: 455px;
-  width: 832px;
-  position: relative;
-  overflow: hidden;
+ 
+    position: relative;
+    overflow: hidden;
 }
 
 article{
